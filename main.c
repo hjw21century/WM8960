@@ -11,11 +11,7 @@
 #include "gpio.h"
 #include "wm8960.h"
 #include "audio_player.h"
-
-/* External declarations for CubeMX generated functions */
-extern void MX_DMA_Init(void);
-extern void MX_I2S3_Init(void);
-extern I2S_HandleTypeDef hi2s3;
+#include "i2s_config.h"
 
 /* Private includes */
 #include "string.h"
@@ -29,7 +25,6 @@ extern I2S_HandleTypeDef hi2s3;
 
 /* Private variables */
 extern I2C_HandleTypeDef hi2c1;
-extern DMA_HandleTypeDef hdma_spi3_tx;
 
 /* Audio buffer */
 uint16_t audio_buffer[AUDIO_BUFFER_SIZE];
@@ -77,10 +72,12 @@ int main(void)
     
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
-    MX_DMA_Init();
     MX_I2C1_Init();
-    MX_I2S3_Init();
     MX_USART1_UART_Init();
+    
+    /* Initialize I2S and DMA for WM8960 */
+    WM8960_DMA_Init();
+    WM8960_I2S_Init();
     
     /* Initialize WM8960 */
     res = WM8960_Init(&hi2c1);
