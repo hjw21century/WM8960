@@ -7,12 +7,15 @@
 
 #include "main.h"
 #include "i2c.h"
-#include "i2s.h"
-#include "dma.h"
 #include "usart.h"
 #include "gpio.h"
 #include "wm8960.h"
 #include "audio_player.h"
+
+/* External declarations for CubeMX generated functions */
+extern void MX_DMA_Init(void);
+extern void MX_I2S3_Init(void);
+extern I2S_HandleTypeDef hi2s3;
 
 /* Private includes */
 #include "string.h"
@@ -26,7 +29,6 @@
 
 /* Private variables */
 extern I2C_HandleTypeDef hi2c1;
-extern I2S_HandleTypeDef hi2s3;
 extern DMA_HandleTypeDef hdma_spi3_tx;
 
 /* Audio buffer */
